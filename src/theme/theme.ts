@@ -45,7 +45,6 @@ export const theme = extendTheme(
         },
         variants: {
           ghost: (props: ThemeComponentProps) => {
-            console.log(props);
             return {
               color: props.colorMode === "dark" ? `${props.colorScheme}.200` : `${props.colorScheme}.500`,
             };
@@ -75,7 +74,7 @@ export const theme = extendTheme(
           },
           body: {
             boxSizing: "border-box",
-            // overflowX: "hidden",
+            overflowX: "hidden",
             bg: props.colorMode === "dark" ? "gray.800" : "white",
             // color: props.colorMode === "dark" ? "gray.100" : "secondary.900",
           },
