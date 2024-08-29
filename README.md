@@ -1,50 +1,11 @@
-# React + TypeScript + Vite
+# Simple To do app - Techinnover
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This is a simple app that tracks time to do tasks and when they are over due. It was buikt using vite, React Typescript, redux toolkit and chakra-UI.
 
-Currently, two official plugins are available:
+This app can be run by cloning to your system, running the install command `npm install` then once all libraries are done installing, running `npm run dev` to start up the local server.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+No backend is being used in this project but the tasks are saved in the browser's local storage to persist them between page loads.(Using this approach, I had to limit what I save to the storage cause of it's max capacity, not to quickly fill it to be able to save more tasks).
 
-## Expanding the ESLint configuration
+The only challenge faced here was for the images. It seemed counter-effective to save the images to the local storage so I had to replace them with links to free images online to keep the functionality (simulating a real-life scenario where the images have to be uploaded to the image server first then the link sent to the backend server).
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Extra features I would've added if given the time would be to make the date at the top of the page functional such that on click of the next and previous button, I can switch between tasks of different days
