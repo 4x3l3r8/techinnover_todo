@@ -25,10 +25,10 @@ export const Calendar = () => {
         <Box w={"full"}>
             <HStack w={"full"} flexDir={{ base: "column", md: "row" }}>
                 <Flex w={"full"} gap={6} flex={3} justifyContent={{ base: "space-between", md: "start" }} >
-                    <Heading>2 August 2023</Heading>
-                    <ButtonGroup gap={3} variant={"outline"} colorScheme="blackAlpha" >
-                        <IconButton aria-label="previous day" rounded={"full"} icon={<Icon as={FiArrowLeft} color={"black"} />} />
-                        <IconButton aria-label="previous day" rounded={"full"} icon={<Icon as={FiArrowRight} color={"black"} />} />
+                    <Heading fontSize={{ base: "2xl", md: "3xl" }}>2 August 2023</Heading>
+                    <ButtonGroup gap={3} variant={"outline"} colorScheme="blackAlpha">
+                        <IconButton aria-label="previous day" rounded={"full"} size={{ base: "sm", md: "md" }} icon={<Icon as={FiArrowLeft} color={"black"} />} />
+                        <IconButton aria-label="next day" rounded={"full"} size={{ base: "sm", md: "md" }} icon={<Icon as={FiArrowRight} color={"black"} />} />
                     </ButtonGroup>
                 </Flex>
 
