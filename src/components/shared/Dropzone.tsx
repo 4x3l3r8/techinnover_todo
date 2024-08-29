@@ -3,10 +3,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { BiTrash } from "react-icons/bi";
-import { FiFileText } from "react-icons/fi";
-import { GrDocumentPdf } from "react-icons/gr";
 import { LuUploadCloud } from "react-icons/lu";
-import { RiFileExcel2Fill } from "react-icons/ri";
 import { toast } from "./Toast";
 
 interface DropzoneProps {
@@ -72,120 +69,6 @@ const Dropzone = ({
     isDragActive ? "primary.500" : "gray.500"
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const thumbsContainer: React.CSSProperties = {
-    display: "flex",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    marginTop: 3,
-  };
-
-  const thumb: React.CSSProperties = {
-    display: "inline-flex",
-    borderRadius: 2,
-    border: "1px solid #eaeaea",
-    // marginBottom: 1,
-    marginRight: 8,
-    width: 100,
-    height: 100,
-    padding: 2,
-    boxSizing: "border-box",
-  };
-
-  const thumbInner = {
-    display: "flex",
-    minWidth: 0,
-    overflow: "hidden",
-  };
-
-  const img = {
-    display: "block",
-    width: "auto",
-    height: "100%",
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const thumbs = files && files.map((file) => {
-    switch (type) {
-      case "image":
-        return (
-          <Box style={thumb} key={file.name}>
-            <Box style={thumbInner}>
-              <img
-                src={file.preview}
-                style={img}
-                onLoad={() => {
-                  URL.revokeObjectURL(file.preview);
-                }}
-              />
-            </Box>
-          </Box>
-        )
-      case "pdf":
-        return (
-          <div key={file.name}>
-            <div style={thumb}>
-              <div style={thumbInner}>
-                <Icon
-                  color={"green.600"}
-                  as={GrDocumentPdf}
-                  style={img}
-                  onLoad={() => {
-                    URL.revokeObjectURL(file.preview);
-                  }}
-                />
-              </div>
-            </div>
-            <br />
-            <Text as={"p"} fontSize={"xs"} isTruncated maxWidth={"100"}>
-              {file.path}
-            </Text>
-          </div>
-        );
-      case "excel":
-        return (
-          <div key={file.name}>
-            <div style={thumb}>
-              <div style={thumbInner}>
-                <Icon
-                  color={"green.600"}
-                  as={RiFileExcel2Fill}
-                  style={img}
-                  onLoad={() => {
-                    URL.revokeObjectURL(file.preview);
-                  }}
-                />
-              </div>
-            </div>
-            <br />
-            <Text as={"p"} fontSize={"xs"} isTruncated maxWidth={"100"}>
-              {file.path}
-            </Text>
-          </div>
-        );
-      default:
-        return (
-          <div key={file.name}>
-            <div style={thumb}>
-              <div style={thumbInner}>
-                <Icon
-                  color={"green.600"}
-                  as={FiFileText}
-                  style={img}
-                  onLoad={() => {
-                    URL.revokeObjectURL(file.preview);
-                  }}
-                />
-              </div>
-            </div>
-            <br />
-            <Text as={"p"} fontSize={"xs"} isTruncated maxWidth={"100"}>
-              {file.path}
-            </Text>
-          </div>
-        );
-    }
-  });
 
   useEffect(() => {
     return () => files?.forEach((file) => URL.revokeObjectURL(file.preview));

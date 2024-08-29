@@ -1,5 +1,5 @@
 import { TaskFormValidation, TaskModalProps } from "./AddTaskModal"
-import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react"
+import { Box, Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react"
 import { TaskForm } from "./TaskForm"
 import { FormikHelpers, useFormik } from "formik"
 import { formValues, Task } from "./types"
@@ -48,17 +48,19 @@ export const EditTaskModal = ({ isOpen, onClose, task }: TaskModalProps & { task
         <Modal isOpen={isOpen} onClose={onClose} size={"2xl"}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Edit Task</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                    <TaskForm formik={formikHandler} />
-                </ModalBody>
+                <Box as="form" onSubmit={formikHandler.handleSubmit}>
+                    <ModalHeader>Edit Task</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <TaskForm formik={formikHandler} />
+                    </ModalBody>
 
-                <ModalFooter>
-                    <Button isLoading={isLoading} w={"full"} type="submit" onClick={formikHandler.handleSubmit}>
-                        Update
-                    </Button>
-                </ModalFooter>
+                    <ModalFooter>
+                        <Button isLoading={isLoading} w={"full"} type="submit">
+                            Update
+                        </Button>
+                    </ModalFooter>
+                </Box>
             </ModalContent>
         </Modal>
     )

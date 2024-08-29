@@ -1,4 +1,4 @@
-import { Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
+import { Box, Button, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay } from "@chakra-ui/react";
 import { FormikHelpers, useFormik } from "formik";
 import { mixed, object, string } from "yup";
 import { TaskForm } from "./TaskForm";
@@ -64,15 +64,17 @@ export const AddTaskModal = ({ isOpen, onClose }: TaskModalProps) => {
         <Modal isOpen={isOpen} onClose={handleClose} size={"2xl"}>
             <ModalOverlay />
             <ModalContent>
-                <ModalHeader>Add Task</ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-                    <TaskForm formik={formikHandler} />
-                </ModalBody>
+                <Box as="form" onSubmit={formikHandler.handleSubmit} >
+                    <ModalHeader>Add Task</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <TaskForm formik={formikHandler} />
+                    </ModalBody>
 
-                <ModalFooter>
-                    <Button w={"full"} isLoading={isLoading} onClick={formikHandler.handleSubmit}>Update</Button>
-                </ModalFooter>
+                    <ModalFooter>
+                        <Button w={"full"} isLoading={isLoading} type="submit">Update</Button>
+                    </ModalFooter>
+                </Box>
             </ModalContent>
         </Modal>
     )
