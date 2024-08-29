@@ -4,7 +4,7 @@ import { PriorityTagSelect } from "./PriorityTagSelect"
 import { formValues } from "./types"
 import { Dropzone } from "../shared"
 
-
+const today = new Date().toISOString().split('T');
 
 export const TaskForm = ({ formik }: { formik: FormikProps<formValues> }) => {
     return (
@@ -40,7 +40,7 @@ export const TaskForm = ({ formik }: { formik: FormikProps<formValues> }) => {
                     <FormLabel>
                         Deadline
                     </FormLabel>
-                    <Input type="date" id="deadline" name="deadline" onChange={formik.handleChange} value={formik.values.deadline} />
+                    <Input type="date" min={today[0]} id="deadline" name="deadline" onChange={formik.handleChange} value={formik.values.deadline} />
                     <FormErrorMessage>{formik.errors.deadline}</FormErrorMessage>
                 </FormControl>
 
@@ -48,7 +48,7 @@ export const TaskForm = ({ formik }: { formik: FormikProps<formValues> }) => {
                     <FormLabel>
                         Time
                     </FormLabel>
-                    <Input type="time" id="time" name="time" onChange={formik.handleChange} value={formik.values.time} />
+                    <Input type="time" min={today[1]} id="time" name="time" onChange={formik.handleChange} value={formik.values.time} />
                     <FormErrorMessage>{formik.errors.time}</FormErrorMessage>
                 </FormControl>
             </Flex>

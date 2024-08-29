@@ -1,6 +1,9 @@
 import { DropColumn, Search } from "@/components/Calendar"
+import { Task } from "@/components/Calendar/types"
 import { useGetTasksQuery } from "@/redux/services/task.api"
+import { searchTasks } from "@/utils/helpers"
 import { Box, Button, ButtonGroup, Flex, Heading, HStack, Icon, IconButton, Skeleton } from "@chakra-ui/react"
+import { useMemo, useState } from "react"
 import { DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi"
@@ -8,9 +11,17 @@ import { FiArrowLeft, FiArrowRight } from "react-icons/fi"
 export const Calendar = () => {
     const { data: tasks, isLoading, refetch } = useGetTasksQuery()
 
-    const todoTasks = tasks?.filter(task => task.status === 'To do') || []
-    const inProgressTasks = tasks?.filter(task => task.status === 'In progress') || []
-    const completedTasks = tasks?.filter(task => task.status === 'Completed') || []
+    const [searchValue, setSearchValue] = useState("")
+
+    const [searchTerm, setSearchTerm] = useState('');
+
+    const filteredTasks = useMemo(() => {
+        return searchTasks(tasks as Task[], searchValue);
+    }, [tasks, searchValue]);
+
+    const todoTasks = filteredTasks?.filter(task => task.status === 'To do') || []
+    const inProgressTasks = filteredTasks?.filter(task => task.status === 'In progress') || []
+    const completedTasks = filteredTasks?.filter(task => task.status === 'Completed') || []
 
     return (
         <Box w={"full"}>
@@ -23,9 +34,9 @@ export const Calendar = () => {
                     </ButtonGroup>
                 </Flex>
 
-                <Search />
+                <Search initialValue={searchValue} onValueChange={(value) => setSearchValue(value)} />
             </HStack>
-            <Button onClick={refetch} />
+            {/* <Button onClick={refetch} /> */}
 
             {!isLoading && tasks ?
                 <DndProvider backend={HTML5Backend}>

@@ -22,7 +22,7 @@ export const TaskCard = ({ task }: { task: Task }) => {
 
     return (
         <>
-            <Card ref={drag} cursor={isDragging ? "grabbing" : "default"}>
+            <Card opacity={isDragging ? 0 : 1} pos={isDragging ? "absolute" : "initial"} ref={drag} cursor={isDragging ? "grabbing" : "default"}>
                 <CardBody p={"16px"}>
                     <PriorityTag priority={task.priority as Priority} />
                     <HStack justifyContent={"space-between"} mt={3}>
