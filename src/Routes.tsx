@@ -1,5 +1,5 @@
 import { Center, Heading, Text } from "@chakra-ui/react";
-import { createBrowserRouter } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import { AuthLayout } from "./components/layouts";
 import { Calendar } from "./pages";
 
@@ -8,7 +8,7 @@ const Routes = createBrowserRouter(
         {
             children: [
                 {
-                    element: <>sdasdfasdf</>,
+                    element: <Navigate to={"/calendar"} replace />,
                     path: "/"
                 },
                 {
