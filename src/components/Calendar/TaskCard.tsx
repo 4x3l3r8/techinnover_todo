@@ -7,6 +7,7 @@ import { PriorityTag } from "./PriorityTag"
 import { TaskCardMenu } from "./TaskCardMenu"
 import { Priority, Task } from "./types"
 import { useDrag } from "react-dnd"
+import { isDateOverdue } from "@/utils/helpers"
 
 export const TaskCard = ({ task }: { task: Task }) => {
     const { isOpen: editIsOpen, onClose: editOnClose, onOpen: editOnOpen } = useDisclosure()
@@ -19,6 +20,16 @@ export const TaskCard = ({ task }: { task: Task }) => {
             isDragging: monitor.isDragging()
         }),
     })
+
+    const getFlagStatus: () => "completed" | "overdue" | "new" = () => {
+        if (task.status === "Completed") {
+            return "completed"
+        } else if (isDateOverdue(task.deadline)) {
+            return "overdue"
+        } else {
+            return "new"
+        }
+    }
 
     return (
         <>
@@ -39,7 +50,7 @@ export const TaskCard = ({ task }: { task: Task }) => {
                 </CardBody>
                 <CardFooter justifyContent={"space-between"} pt={0}>
                     <Flex alignItems={"center"} gap={3}>
-                        <Flag status="overdue" />
+                        <Flag status={getFlagStatus()} />
                         <Text color={"#6E7C87"} fontSize={"12px"}>{task.deadline}</Text>
                     </Flex>
                     <Text color={"#6E7C87"}>{task.time}</Text>

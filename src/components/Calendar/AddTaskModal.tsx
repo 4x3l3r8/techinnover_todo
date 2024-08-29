@@ -12,11 +12,11 @@ export interface TaskModalProps {
 }
 
 export const TaskFormValidation = object().shape({
-    name: string().required(),
-    description: string().required(),
-    deadline: string().required(),
-    time: string().required(),
-    priority: string().required(),
+    name: string().required("This field is required"),
+    description: string(),
+    deadline: string().required("This field is required"),
+    time: string().required("This field is required"),
+    priority: string().required("This field is required"),
     file: mixed()
 })
 
@@ -55,8 +55,13 @@ export const AddTaskModal = ({ isOpen, onClose }: TaskModalProps) => {
         onSubmit: handleSubmit
     })
 
+    const handleClose = () => {
+        formikHandler.resetForm()
+        onClose()
+    }
+
     return (
-        <Modal isOpen={isOpen} onClose={onClose} size={"2xl"}>
+        <Modal isOpen={isOpen} onClose={handleClose} size={"2xl"}>
             <ModalOverlay />
             <ModalContent>
                 <ModalHeader>Add Task</ModalHeader>

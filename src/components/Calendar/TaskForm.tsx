@@ -31,7 +31,9 @@ export const TaskForm = ({ formik }: { formik: FormikProps<formValues> }) => {
                 <FormLabel display={"flex"}>
                     Upload cover <Text color={"gray.400"} fontWeight={"normal"} ml={1}>(Optional)</Text>
                 </FormLabel>
-                <Dropzone onFileAccepted={(file) => formik.setFieldValue("image", file[0])} value={formik.values.image} type="image" />
+                <Dropzone onFileAccepted={(file) => {
+                    formik.setFieldValue("image", file[0])
+                }} prevValue={formik.values.image} type="image" />
                 <FormErrorMessage>{formik.errors.image}</FormErrorMessage>
             </FormControl>
 

@@ -2,18 +2,16 @@ import { DropColumn, Search } from "@/components/Calendar"
 import { Task } from "@/components/Calendar/types"
 import { useGetTasksQuery } from "@/redux/services/task.api"
 import { searchTasks } from "@/utils/helpers"
-import { Box, Button, ButtonGroup, Flex, Heading, HStack, Icon, IconButton, Skeleton } from "@chakra-ui/react"
+import { Box, ButtonGroup, Flex, Heading, HStack, Icon, IconButton, Skeleton } from "@chakra-ui/react"
 import { useMemo, useState } from "react"
 import { DndProvider } from "react-dnd"
 import { HTML5Backend } from "react-dnd-html5-backend"
 import { FiArrowLeft, FiArrowRight } from "react-icons/fi"
 
 export const Calendar = () => {
-    const { data: tasks, isLoading, refetch } = useGetTasksQuery()
+    const { data: tasks, isLoading } = useGetTasksQuery()
 
     const [searchValue, setSearchValue] = useState("")
-
-    const [searchTerm, setSearchTerm] = useState('');
 
     const filteredTasks = useMemo(() => {
         return searchTasks(tasks as Task[], searchValue);
@@ -36,7 +34,6 @@ export const Calendar = () => {
 
                 <Search initialValue={searchValue} onValueChange={(value) => setSearchValue(value)} />
             </HStack>
-            {/* <Button onClick={refetch} /> */}
 
             {!isLoading && tasks ?
                 <DndProvider backend={HTML5Backend}>

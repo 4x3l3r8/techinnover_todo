@@ -10,10 +10,10 @@ import { RiFileExcel2Fill } from "react-icons/ri";
 import { toast } from "./Toast";
 
 interface DropzoneProps {
-  onFileAccepted: (acceptedFiles: File[]) => void;
+  onFileAccepted: (acceptedFiles: File[] | string) => void;
   maxFiles?: number;
   multiple?: boolean;
-  value?: string | File;
+  prevValue?: string | File;
   type?: "image" | "pdf" | "excel" | "all"
 }
 
@@ -36,7 +36,7 @@ const Dropzone = ({
   maxFiles = 1,
   multiple = false,
   type = "image",
-  value,
+  prevValue,
 }: DropzoneProps) => {
   const [files, setFiles] = useState<(File & { preview: string; path?: string })[]>([]);
 
@@ -206,7 +206,7 @@ const Dropzone = ({
     >
       {/* <input {...formikFieldProps} {...getInputProps()} /> */}
       <input {...getInputProps()} />
-      {files.length <= 0 && typeof value !== "string" && (
+      {files.length <= 0 && (prevValue === "" || !prevValue) && (
         <Box
           textAlign={"center"}
           style={{
@@ -222,10 +222,10 @@ const Dropzone = ({
       )}
       {/* <aside style={thumbsContainer}>{thumbs}</aside> for multiple images*/}
 
-      {files.length > 0 || value && (
+      {files.length > 0 || prevValue ? (
         <Flex gap={3} alignItems={"center"} w={"full"}>
           <Flex w={"50%"} h={"126px"} overflow={"hidden"}>
-            <Image rounded={"md"} w={"full"} objectFit={"cover"} src={files[0]?.preview} onLoad={() => URL.revokeObjectURL(files[0]?.preview)} />
+            <Image rounded={"md"} w={"full"} objectFit={"cover"} src={files[0]?.preview ? files[0].preview : prevValue as string} onLoad={() => URL.revokeObjectURL(files[0]?.preview)} />
           </Flex>
           <Stack flex={1}>
             <Text fontWeight={"500"}>{files[0]?.name ?? "Image"}</Text>
@@ -235,9 +235,9 @@ const Dropzone = ({
               <Text>100%</Text>
             </Flex>
           </Stack>
-          <IconButton onClick={(e) => { e.stopPropagation(); setFiles([]) }} variant={"ghost"} size={"lg"} colorScheme="gray" aria-label="delete image" icon={<Icon as={BiTrash} fontSize={24} />} />
+          <IconButton onClick={(e) => { e.stopPropagation(); setFiles([]); onFileAccepted("") }} variant={"ghost"} size={"lg"} colorScheme="gray" aria-label="delete image" icon={<Icon as={BiTrash} fontSize={24} />} />
         </Flex>
-      )}
+      ) : ""}
     </Center>
   );
 };

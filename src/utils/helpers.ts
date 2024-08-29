@@ -1,10 +1,13 @@
 import { Task } from "@/components/Calendar/types";
 
-export const simulateImageUpload = (file: File): Promise<string> => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export const simulateImageUpload = (_file: File): Promise<string> => {
+  // replace with a dummy image so as not to fill up local storage on time
   return new Promise((resolve) => {
     setTimeout(() => {
       // Generate a fake URL or ID
-      const fakeUrl = `https://fake-image-host.com/${file.name}-${Date.now()}.jpg`;
+      //   const fakeUrl = `https://fake-image-host.com/${file.name}-${Date.now()}.jpg`;
+      const fakeUrl = `https://picsum.photos/id/${Date.now() % 1000}/1980`;
       resolve(fakeUrl);
     }, 1000); // Simulate upload time
   });
@@ -52,4 +55,18 @@ export const searchTasks = (tasks: Task[], searchTerm: string): Task[] => {
 
     return false;
   });
+};
+
+export const isDateOverdue = (dateString: string) => {
+  // Convert the date string (YYYY-MM-DD) to a Date object
+  const inputDate = new Date(dateString);
+
+  // Get today's date
+  const today = new Date();
+
+  // Set the time of today's date to 00:00:00 to compare only the date part
+  today.setHours(0, 0, 0, 0);
+
+  // Compare the dates
+  return inputDate < today;
 };
